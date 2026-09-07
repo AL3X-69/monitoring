@@ -16,3 +16,26 @@ groups:
           severity: warning
         annotations:
           summary: "High CPU usage on {{ $labels.instance }}"
+
+      - alert: LowMemory
+        expr: |
+          node_memory_MemAvailable_bytes
+          / node_memory_MemTotal_bytes * 100 < 15
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low memory on {{ $labels.instance }}"
+          description: "Available memory is below 15% (currently {{ $value | printf \"%.1f\" }}%)."
+
+      - alert: CriticalMemory
+        expr: |
+          node_memory_MemAvailable_bytes
+          / node_memory_MemTotal_bytes * 100 < 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "LOW LOW memory on {{ $labels.instance }}"
+          description: "Available memory is below 5% (currently {{ $value | printf \"%.1f\" }}%)."
+
