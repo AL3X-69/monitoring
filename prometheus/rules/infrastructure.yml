@@ -8,6 +8,7 @@ groups:
           severity: critical
         annotations:
           summary: "Host {{ $labels.host }} is down"
+          description: "Host {{ $labels.host }} is unreachable, and/or metrics cannot be retrieved"
 
       - alert: HighCPU
         expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
@@ -16,6 +17,7 @@ groups:
           severity: warning
         annotations:
           summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is high (>90%) for more than 5 minutes"
 
       - alert: LowMemory
         expr: |

@@ -17,3 +17,8 @@ scrape_configs:
     file_sd_configs:
       - files: 
         - /etc/prometheus/targets/servers.yml
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
