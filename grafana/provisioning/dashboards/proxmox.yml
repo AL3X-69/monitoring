@@ -1,0 +1,9 @@
+apiVersion: 2
+providers:
+  - name: "Proxmox Dashboards"
+    orgId: 1
+    disableDeletion: true
+    allowUiUpdates: false
+    options:
+      path: /etc/grafana/provisioning/dashboards/proxmox
+      foldersFromFilesStructure: true
