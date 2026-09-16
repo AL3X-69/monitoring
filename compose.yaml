@@ -39,9 +39,20 @@ services:
       - alertmanager_storage:/alertmanager
     networks:
       - monitoring
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3001"
+    volumes: 
+      - uptime-kuma_storage:/app/data
+    networks:
+      - monitoring
 volumes:
   grafana_storage: {}
   prometheus_storage: {}
   alertmanager_storage: {}
+  uptime-kuma_storage: {}
 networks:
   monitoring: {}
