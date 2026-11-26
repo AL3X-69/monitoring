@@ -1,0 +1,8 @@
+- targets: 
+  - cadvisor:8080
+  labels:
+    host: monitoring
+- targets: 
+  - 192.168.1.123:4444
+  labels:
+    host: phi

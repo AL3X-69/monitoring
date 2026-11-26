@@ -17,6 +17,10 @@ scrape_configs:
     file_sd_configs:
       - files: 
         - /etc/prometheus/targets/servers.yml
+  - job_name: cadvisor
+    file_sd_configs:
+      - files:
+        - /etc/prometheus/targets/dockers.yml
 alerting:
   alertmanagers:
     - static_configs:

@@ -1,0 +1,66 @@
+default-endpoint: &defaults
+  interval: 5m
+  conditions:
+    - "[STATUS] == 200"
+    - "[RESPONSE_TIME] < 500"
+  alerts:
+    - type: discord
+      description: "Cant reach endpoint: healthcheck failed"
+      send-on-resolved: true
+endpoints:
+  - name: alex6.dev
+    url: "https://alex6.dev"
+    <<: *defaults
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 500"
+#      - "[DOMAIN_EXPIRATION] > 720h"
+  - name: bridget.alex6.dev
+    url: "https://bridget.alex6.dev"
+    <<: *defaults
+# TODO : impl
+#  - name: ci.alex6.dev
+#    url: "https://ci.alex6.dev"
+#    interval: 5m
+#    conditions:
+#      - "[STATUS] == 200"
+#      - "[RESPONSE_TIME] < 500"
+  - name: files.alex6.dev
+    url: "https://files.alex6.dev"
+    <<: *defaults
+  - name: gitegolinhac.com
+    url: "https://gitegolinhac.com"
+    <<: *defaults
+  - name: metrics.alex6.dev
+    url: "https://metrics.alex6.dev"
+    <<: *defaults
+#  - name: mvn.alex6.dev
+#    url: "https://mvn.alex6.dev"
+#    <<: *defaults
+  - name: nvd.alex6.dev
+    url: "https://nvd.alex6.dev"
+    <<: *defaults
+  - name: mail.alex6.dev (SMTP)
+    url: "tls://mail.alex6.dev:465"
+    interval: 30m
+    client:
+      timeout: 5s
+    conditions:
+      - "[CONNECTED] == true"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+  - name: mail.alex6.dev (IMAP)
+    url: "tls://mail.alex6.dev:993"
+    interval: 30m
+    client:
+      timeout: 5s
+    conditions:
+      - "[CONNECTED] == true"
+      - "[CERTIFICATE_EXPIRATION] > 48h"
+alerting:
+  discord:
+    webhook-url: ${DISCORD_WEBHOOK_URL}
+#announcements:
+#  - timestamp: 2026-11-07T14:00:00Z
+#    type: information
+#    message: "Reposilite migration: Currently the local mvn repo is down due to an infrastructure change, I recently changed servers so I planned to migrate the repo fully this saturday."
+
